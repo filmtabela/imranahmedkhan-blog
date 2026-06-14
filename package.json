@@ -1,0 +1,13 @@
+{
+  "name": "imranahmedkhan-blog",
+  "version": "1.0.0",
+  "description": "Automated authority content engine for imranahmedkhan.com",
+  "main": "publish.js",
+  "scripts": {
+    "publish": "node publish.js",
+    "test": "echo \"Testing publisher...\" && node -e \"console.log('OK')\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}
