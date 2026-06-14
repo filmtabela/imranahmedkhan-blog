@@ -37,15 +37,3 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "Auto-publish: $(date +'%Y-%m-%d %H:%M IST')"
           git push
-
-      - name: Deploy to Hostinger via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 145.79.209.26
-          port: 65002
-          username: u114546712
-          password: ${{ secrets.SSH_PASS }}
-          script: |
-            cd /home/u114546712/domains/imranahmedkhan.com/public_html
-            git pull origin main
-            echo "✅ Deployed to imranahmedkhan.com"
