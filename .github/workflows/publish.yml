@@ -1,0 +1,51 @@
+name: IAK Daily Publisher
+
+on:
+  schedule:
+    - cron: '30 3 * * *'   # 9:00 AM IST
+    - cron: '30 7 * * *'   # 1:00 PM IST
+    - cron: '30 11 * * *'  # 5:00 PM IST
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate and publish article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node publish.js
+
+      - name: Commit new article to GitHub
+        run: |
+          git config user.name "IAK Publisher Bot"
+          git config user.email "filmtabela@gmail.com"
+          git add .
+          git diff --staged --quiet || git commit -m "Auto-publish: $(date +'%Y-%m-%d %H:%M IST')"
+          git push
+
+      - name: Deploy to Hostinger via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 145.79.209.26
+          port: 65002
+          username: u114546712
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/u114546712/domains/imranahmedkhan.com/public_html
+            git pull origin main
+            echo "✅ Deployed to imranahmedkhan.com"
