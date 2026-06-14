@@ -44,7 +44,7 @@ jobs:
           host: 145.79.209.26
           port: 65002
           username: u114546712
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASS }}
           script: |
             cd /home/u114546712/domains/imranahmedkhan.com/public_html
             git pull origin main
