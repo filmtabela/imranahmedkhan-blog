@@ -197,7 +197,7 @@ const TOPICS = [
 // ============================================================
 const AFFILIATE_LINKS = {
   amazon: (query) => `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`,
-  hostinger: "https://www.hostinger.com/imranahmedkhan", // replace with real ref link
+  hostinger: "https://www.hostinger.com/in?REFERRALCODE=QF0MAILMAXCP",
   canva: "https://www.canva.com/join/imranahmedkhan", // replace with real ref link
   semrush: "https://www.semrush.com/analytics/overview/", // replace with real ref link
   vpn: "https://www.amazon.com/s?k=best+vpn+subscription&tag=" + AMAZON_TAG,
