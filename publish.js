@@ -496,7 +496,7 @@ footer a{color:var(--gold-light);text-decoration:none;}
 </head>
 <body>
 <header>
-  <a href="/" class="logo">Imran <span>Ahmed Khan</span></a>
+  <a href="https://imranahmedkhan.com" class="logo">Imran <span>Ahmed</span> Khan</a>
   <nav class="nav-links">
     <a href="/articles.html">Insights</a>
     <a href="/#categories">Topics</a>
@@ -524,7 +524,7 @@ ${heroImageHTML}
 </div>
 
 <footer>
-  <div class="footer-logo">Imran <span>Ahmed Khan</span></div>
+  <div class="footer-logo">Imran <span>Ahmed</span> Khan</div>
   <p>Power. Wealth. Strategy.</p>
   <p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="/articles.html">Insights</a> &nbsp;·&nbsp; <a href="https://imakinc.com">IMAK Overseas</a> &nbsp;·&nbsp; <a href="https://theplatinumcapital.com">The Platinum Capital</a></p>
   <p style="margin-top:16px;font-size:12px;">This site contains affiliate links. © ${new Date().getFullYear()} Imran Ahmed Khan. All rights reserved.</p>
@@ -600,7 +600,7 @@ footer a{color:var(--gold-light);text-decoration:none;}
 </head>
 <body>
 <header>
-  <a href="/" class="logo">Imran <span>Ahmed Khan</span></a>
+  <a href="https://imranahmedkhan.com" class="logo">Imran <span>Ahmed</span> Khan</a>
   <nav class="nav-links">
     <a href="/articles.html">Insights</a>
     <a href="/#categories">Topics</a>
@@ -621,7 +621,7 @@ footer a{color:var(--gold-light);text-decoration:none;}
   ${cards}
 </div>
 <footer>
-  <div class="footer-logo">Imran <span>Ahmed Khan</span></div>
+  <div class="footer-logo">Imran <span>Ahmed</span> Khan</div>
   <p>Power. Wealth. Strategy.</p>
   <p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="/articles.html">Insights</a> &nbsp;·&nbsp; <a href="https://imakinc.com">IMAK Overseas</a></p>
   <p style="margin-top:16px;font-size:12px;">© ${new Date().getFullYear()} Imran Ahmed Khan</p>
