@@ -342,6 +342,7 @@ function buildArticleHTML(topic, articleText, pexelsImage = null) {
   let bodyHTML = "";
   const lines = articleText.split("\n");
   let inFAQ = false;
+  let affIndex = 0;
 
   for (const line of lines) {
     const trimmed = line.trim();
@@ -355,7 +356,9 @@ function buildArticleHTML(topic, articleText, pexelsImage = null) {
       bodyHTML += `<h3>${trimmed.replace("### ", "")}</h3>\n`;
     } else if (trimmed.startsWith("[AFFILIATE:")) {
       // Replace affiliate markers with styled CTA boxes
-      const desc = trimmed.replace("[AFFILIATE:", "").replace("]", "").trim();
+      const affList = (topic.affiliates && topic.affiliates.length) ? topic.affiliates : ["amazon"];
+        const affType = affList[affIndex % affList.length];
+        affIndex++;
       const affType = topic.affiliates[0] || "amazon";
       const affLink = typeof AFFILIATE_LINKS[affType] === "function"
         ? AFFILIATE_LINKS[affType](topic.title)
