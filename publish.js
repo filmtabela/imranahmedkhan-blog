@@ -12,7 +12,7 @@ const SITE_DIR = process.cwd();
 const SITE_NAME = "Imran Ahmed Khan";
 const SITE_TAGLINE = "Power. Wealth. Strategy.";
 const SITE_URL = "https://imranahmedkhan.com";
-const AMAZON_TAG = "bollywoodedge-20"; // Amazon.com associate tag
+const AMAZON_TAG = "bollywooded0f-21"; // Amazon.in associate tag
 // ============================================================
 
 const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
@@ -196,15 +196,14 @@ const TOPICS = [
 // AFFILIATE LINK BUILDER
 // ============================================================
 const AFFILIATE_LINKS = {
-  amazon: (query) => `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`,
+  amazon: (query) => `https://www.amazon.in/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`,
   hostinger: "https://www.hostinger.com/in?REFERRALCODE=QF0MAILMAXCP",
   canva: "https://www.canva.com/join/imranahmedkhan", // replace with real ref link
   semrush: "https://www.semrush.com/analytics/overview/", // replace with real ref link
-  vpn: "https://www.amazon.com/s?k=best+vpn+subscription&tag=" + AMAZON_TAG,
+  vpn: "https://www.amazon.in/s?k=best+vpn+subscription&tag=" + AMAZON_TAG,
   education: "https://imakinc.com",
-  travel: "https://www.amazon.com/s?k=travel+accessories+executive&tag=" + AMAZON_TAG,
+  travel: "https://www.amazon.in/s?k=travel+accessories+executive&tag=" + AMAZON_TAG,
 };
-
 function slugify(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
