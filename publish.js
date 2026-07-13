@@ -314,7 +314,8 @@ REQUIREMENTS:
 - Every section must deliver genuine insight, not filler
 - Include natural opportunities for these affiliate recommendations:
 ${affiliateInstructions}
-- Mark affiliate insertion points like this: [AFFILIATE: product/service description]
+- MANDATORY: You MUST include at least 3 affiliate insertion points. Each one goes on its own line, in exactly this format: [AFFILIATE: product/service description]
+- Place them naturally after relevant sections. An article without at least 3 [AFFILIATE: ...] markers is invalid and will be rejected.
 - Include 2-3 internal link suggestions marked as: [INTERNAL LINK: suggested article title]
 - Include 1 lead magnet suggestion marked as: [LEAD MAGNET: description]
 - End with a powerful call to action
@@ -382,6 +383,18 @@ function buildArticleHTML(topic, articleText, pexelsImage = null) {
     } else {
       bodyHTML += `<p>${trimmed}</p>\n`;
     }
+  }
+  // Fallback: if the model emitted no affiliate markers, inject one
+  if (!articleText.includes("[AFFILIATE:")) {
+    const affType = topic.affiliates[0] || "amazon";
+    const affLink = typeof AFFILIATE_LINKS[affType] === "function"
+      ? AFFILIATE_LINKS[affType](topic.title)
+      : AFFILIATE_LINKS[affType] || "#";
+    bodyHTML += `<div class="affiliate-box">
+      <div class="aff-label">RECOMMENDED</div>
+      <p>Explore top-rated picks related to ${topic.title}.</p>
+      <a href="${affLink}" class="aff-btn" target="_blank" rel="nofollow noopener">Explore Now →</a>
+    </div>\n`;
   }
 
   const heroImageHTML = pexelsImage
@@ -524,9 +537,8 @@ ${heroImageHTML}
 
 <footer>
   <div class="footer-logo">Imran <span>Ahmed</span> Khan</div>
-  <p>Power. Wealth. Strategy.</p>
-  <p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="/articles.html">Insights</a> &nbsp;·&nbsp; <a href="https://imakinc.com">IMAK Overseas</a> &nbsp;·&nbsp; <a href="https://theplatinumcapital.com">The Platinum Capital</a></p>
-  <p style="margin-top:16px;font-size:12px;">This site contains affiliate links. © ${new Date().getFullYear()} Imran Ahmed Khan. All rights reserved.</p>
+  <p>Power. Money. Strategy.</p>
+<p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="/articles.html">Insights</a> &nbsp;·&nbsp; <a href="https://imakinc.com">IMAK Overseas</a></p>  <p style="margin-top:16px;font-size:12px;">This site contains affiliate links. © ${new Date().getFullYear()} Imran Ahmed Khan. All rights reserved.</p>
 </footer>
 </body>
 </html>`;
