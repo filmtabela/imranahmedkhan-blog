@@ -668,6 +668,7 @@ function gitPush(slug) {
     console.log("✅ Pushed to GitHub — deploying to Hostinger...");
   } catch (err) {
     console.error("❌ Git push failed:", err.message);
+    throw err;
   }
 }
 
