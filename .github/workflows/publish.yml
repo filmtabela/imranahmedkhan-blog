@@ -1,10 +1,8 @@
-name: IAK Daily Publisher
-
+name: Batch Publish - IAK
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9:00 AM IST
-    - cron: '30 7 * * *'   # 1:00 PM IST
-    - cron: '30 11 * * *'  # 5:00 PM IST
+    - cron: '30 2 * * *'   # 8:00 AM IST — queue batch
+    - cron: '30 14 * * *'  # 8:00 PM IST — retrieve & publish
   workflow_dispatch:
 
 jobs:
@@ -12,28 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
-
       - name: Setup Node.js
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
-
       - name: Install dependencies
         run: npm install
-
       - name: Generate and publish article
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: node publish.js
-
       - name: Commit new article to GitHub
         run: |
           git config user.name "IAK Publisher Bot"
           git config user.email "filmtabela@gmail.com"
           git add .
-          git diff --staged --quiet || git commit -m "Auto-publish: $(date +'%Y-%m-%d %H:%M IST')"
+          git diff --staged --quiet || git commit -m "Batch publish: $(date +'%Y-%m-%d %H:%M IST')"
           git push
