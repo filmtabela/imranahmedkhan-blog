@@ -212,6 +212,27 @@ function affiliateFor(desc) {
   return AFFILIATE_LINKS.amazon(desc);
 }
 
+// Find the most relevant existing article for an "Also read" box.
+function closestExistingArticle(wantedTitle, excludeSlug) {
+  const dir = path.join(SITE_DIR, "articles");
+  if (!fs.existsSync(dir)) return null;
+  const stop = new Set("the a an of to for and in on with how what why your is are vs best guide india 2024 2025 2026".split(" "));
+  const words = (t) => new Set(String(t).toLowerCase().match(/[a-z0-9]+/g)?.filter(w => w.length > 2 && !stop.has(w)) || []);
+  const want = words(wantedTitle);
+  let best = null, bestScore = 0;
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".html")) continue;
+    const s = f.slice(0, -5);
+    if (s === excludeSlug) continue;
+    const m = fs.readFileSync(path.join(dir, f), "utf8").match(/<title>([^<|]+)/);
+    const t = m ? m[1].trim() : s;
+    let score = 0;
+    for (const w of words(t + " " + s.replace(/-/g, " "))) if (want.has(w)) score++;
+    if (score > bestScore) { bestScore = score; best = { slug: s, title: t }; }
+  }
+  return best;
+}
+
 function slugify(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -383,9 +404,10 @@ function buildArticleHTML(topic, articleText, pexelsImage = null) {
       </div>\n`;
       }
     } else if (trimmed.startsWith("[INTERNAL LINK:")) {
-      const linkTitle = trimmed.replace("[INTERNAL LINK:", "").replace("]", "").trim();
-      const linkSlug = slugify(linkTitle);
-      bodyHTML += `<div class="internal-link-box">📖 Also read: <a href="/articles/${linkSlug}.html">${linkTitle}</a></div>\n`;
+      // Only link to articles that actually exist: pick the closest real article by topic words.
+      const wanted = trimmed.replace("[INTERNAL LINK:", "").replace("]", "").trim();
+      const match = closestExistingArticle(wanted, slug);
+      if (match) bodyHTML += `<div class="internal-link-box">📖 Also read: <a href="/articles/${match.slug}.html">${match.title}</a></div>\n`;
     } else if (trimmed.startsWith("[LEAD MAGNET:")) {
       const desc = trimmed.replace("[LEAD MAGNET:", "").replace("]", "").trim();
       bodyHTML += `<div class="lead-magnet-box">
