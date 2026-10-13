@@ -322,7 +322,7 @@ REQUIREMENTS:
 - Every section must deliver genuine insight, not filler
 - Include natural opportunities for these affiliate recommendations:
 ${affiliateInstructions}
-- MANDATORY: You MUST include at least 3 affiliate insertion points. Each one goes on its own line, in exactly this format: [AFFILIATE: product/service description]
+- MANDATORY: You MUST include at least 3 affiliate insertion points. Each one goes on its own line, in exactly this format: [AFFILIATE: Product name | one-sentence reason to buy]. The product name must be a specific physical product or book that is sold on Amazon India, 2-6 words, searchable (e.g. \"Atomic Habits book\", \"leather laptop bag men\", \"Casio Edifice chronograph\"). Do not recommend software, services or advisors.
 - Place them naturally after relevant sections. An article without at least 3 [AFFILIATE: ...] markers is invalid and will be rejected.
 - Include 2-3 internal link suggestions marked as: [INTERNAL LINK: suggested article title]
 - Include 1 lead magnet suggestion marked as: [LEAD MAGNET: description]
@@ -372,10 +372,13 @@ function buildArticleHTML(topic, articleText, pexelsImage = null) {
         else bodyHTML += `<p>${rest}</p>\n`;
       }
       for (const desc of descs) {
-        const affLink = affiliateFor(desc);
+        const [name, ...pitchParts] = desc.split("|");
+        const product = name.trim();
+        const pitch = pitchParts.join("|").trim();
+        const affLink = affiliateFor(product);
         bodyHTML += `<div class="affiliate-box">
         <div class="aff-label">RECOMMENDED</div>
-        <p>${desc}</p>
+        <p><strong>${product}</strong>${pitch ? " — " + pitch : ""}</p>
         <a href="${affLink}" class="aff-btn" target="_blank" rel="nofollow sponsored noopener">Explore Now →</a>
       </div>\n`;
       }
