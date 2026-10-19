@@ -1,11 +1,7 @@
 name: IAK Daily Publisher
 
 on:
-  schedule:
-    - cron: '30 3 * * *'   # 9:00 AM IST, one article a day
-  push:
-    branches: [main]
-    paths: ['publish.js', '.github/workflows/publish.yml']
+  # Paused 19-Oct-2026 to cut token spend and maintenance. Run manually from the Actions tab if ever needed.
   workflow_dispatch:
 
 concurrency:
